@@ -1,18 +1,18 @@
-// const db = require('../util/database')
+const db = require('../db/db');
 
 module.exports = class Posts {
-    constructor(id,title,content,category,tags,imageURL,author,posturl){
-        this.id = id;
+    constructor(id,title,content,category,author,posturl,publishedDate){
+        this.id = Math.random();
         this.title = title;
         this.content = content;
         this.category = category;
-        this.tags = tags;
-        this.imageURL = imageURL;
         this.author = author;
         this.posturl = posturl;
+        this.publishedDate = publishedDate;
     }
 
     save() {
+        console.log(this)
         // return db.execute(
         //     'INSERT INTO products (title,price,description,imageUrl) VALUES (?,?,?,?)',
         //     [this.title,this.price,this.description,this.imageUrl]

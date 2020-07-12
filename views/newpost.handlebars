@@ -1,25 +1,23 @@
 <main>
     <h1>Create New Post</h1>
-  <script src="https://cdn.ckeditor.com/ckeditor5/20.0.0/classic/ckeditor.js"></script>
+   <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
                
  <div class="body">
      <form action="/new" method="POST">
         <label for="title">Post Title</label>
         <input type="text" name="title">
-        {{!-- <div id="editor">This is some sample content.</div> --}}
-        <textarea id="editor" name="editor"></textarea>
+
+        <label for="title">Category</label>
+        <select name="category" id="">
+            <option value="1">Web Dev</option>
+            <option value="2">Marketing</option>
+            <option value="3">Uncategorize</option>
+        </select>
+        <textarea name="content" id="editor"></textarea>
         <input type="submit" value="Create">
      </form>
 <script>
-    ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
-    custom
+   CKEDITOR.replace( 'editor' );
 </script>
  </div>
 </main>
