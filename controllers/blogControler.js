@@ -38,23 +38,6 @@ module.exports.getpostPage = (req,res) => {
     }).catch(err => console.log(err))
 }
 
-// module.exports.postPage = (req,res) => {
-//     // var tags = tagsToArray(req.body.tags); 
-//     // var post = new Post({
-//     //     Title: req.body.title,
-//     //     Content: req.body.content,
-//     //     category: req.body.category,
-//     //     tags : tags,
-//     //     ImageURL : req.body.image,
-//     //     Author : req.cookies.decoded._doc.username,
-//     //     posturl  : req.body.title.split(' ').join('-'),
-//     //     PublishDate: new Date().toLocaleDateString()
-//     // }
-
-//     res.render('posts',{
-//         posts: true
-//     })
-// }
 
 module.exports.aboutPage = (req,res) => {
     Post.fetchAll().then(([posts]) => {
@@ -63,9 +46,7 @@ module.exports.aboutPage = (req,res) => {
             posts: posts
         });
     }).catch(err => console.log(err))
-    // res.render('about',{
-    //     about: true
-    // })
+
 }
 
 module.exports.contactPage = (req,res) => {

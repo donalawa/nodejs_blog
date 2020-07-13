@@ -8,8 +8,6 @@ const getHashedPassword = (password) => {
 }
 
 module.exports.getLogin = (req,res) => {
-    // const isLoggedIn = req.get('Cookie').split(';')[1].trim().split('=')[1]
-    // console.log(req.get('Cookie').split('=')[1])
     res.render('login',{
         loginPage: true
     });
@@ -36,11 +34,6 @@ module.exports.postLogin = (req,res) => {
     }).catch(err => {
         console.log(err)
     })
-    //Using a session 
-    // req.cookie.isLoggedIn = true;
-    // req.cookie.userEmail = req.body.email;
-
-    // res.redirect('/')
 }
 
 module.exports.getRegister = (req,res) => {
