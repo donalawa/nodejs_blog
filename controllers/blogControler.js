@@ -2,6 +2,8 @@
 const Post = require('../models/posts');
 const multer = require('multer')
 const path = require('path');
+const { all, post } = require('../routes/apiRoutes');
+const { error } = require('console');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -28,45 +30,72 @@ module.exports.home = (req,res,next) => {
 }
 
 module.exports.getpostPage = (req,res) => {
-    res.render('posts',{
-        posts: true
-    })
+    Post.fetchAll().then(([posts]) => {
+        res.render('posts',{
+            home: true,
+            posts: posts
+        });
+    }).catch(err => console.log(err))
 }
 
-module.exports.postPage = (req,res) => {
-    // var tags = tagsToArray(req.body.tags); 
-    // var post = new Post({
-    //     Title: req.body.title,
-    //     Content: req.body.content,
-    //     category: req.body.category,
-    //     tags : tags,
-    //     ImageURL : req.body.image,
-    //     Author : req.cookies.decoded._doc.username,
-    //     posturl  : req.body.title.split(' ').join('-'),
-    //     PublishDate: new Date().toLocaleDateString()
-    // }
+// module.exports.postPage = (req,res) => {
+//     // var tags = tagsToArray(req.body.tags); 
+//     // var post = new Post({
+//     //     Title: req.body.title,
+//     //     Content: req.body.content,
+//     //     category: req.body.category,
+//     //     tags : tags,
+//     //     ImageURL : req.body.image,
+//     //     Author : req.cookies.decoded._doc.username,
+//     //     posturl  : req.body.title.split(' ').join('-'),
+//     //     PublishDate: new Date().toLocaleDateString()
+//     // }
 
-    res.render('posts',{
-        posts: true
-    })
-}
+//     res.render('posts',{
+//         posts: true
+//     })
+// }
 
 module.exports.aboutPage = (req,res) => {
-    res.render('about',{
-        about: true
-    })
+    Post.fetchAll().then(([posts]) => {
+        res.render('about',{
+            home: true,
+            posts: posts
+        });
+    }).catch(err => console.log(err))
+    // res.render('about',{
+    //     about: true
+    // })
 }
 
 module.exports.contactPage = (req,res) => {
-    res.render('contact',{
-        contact: true
-    })
+    Post.fetchAll().then(([posts]) => {
+        res.render('contact',{
+            home: true,
+            posts: posts
+        });
+    }).catch(err => console.log(err))
 }
 
 module.exports.getNewPost = (req,res) => {
-    res.render('newpost',{
-        newpost: true
-    })
+    try {
+        const isLoggedIn = req.get('Cookie').split('=')[1];
+        Post.fetchAll().then(([posts]) => {
+            if(isLoggedIn){
+                res.render('newpost',{
+                    newpost: true,
+                    posts: posts
+                });
+            }else {
+                res.redirect('/login')
+            }
+           
+        }).catch(err => console.log(err))
+    } catch (error) {
+        res.redirect('/login')
+    }
+    
+  
 }
 
 module.exports.postNewPost = (req,res) => {
@@ -91,9 +120,13 @@ module.exports.postNewPost = (req,res) => {
                         new Date().toLocaleDateString(),
                         req.file.filename
                     );
+                    console.log('before save')
                     post.save().then(() => {
                         res.redirect('/')
-                    }).catch(err => console.log(err));
+                    }).catch(err => {
+                        // res.redirect('/login')
+                        // console.log(err)
+                    });
                     
                 }
             } catch (error) {
@@ -109,11 +142,99 @@ module.exports.postNewPost = (req,res) => {
 
 module.exports.getSinglePost = (req,res,next) => {
     var id = req.params.id;
-    // Post.findById(+id).then((post) => {
-    //     res.render('singlepost',{
-    //         post: post
-    //     })
-    // }).catch(err => console.log(err))
-    res.render('singlepost')
+    var allPost = [];
+
+    Post.fetchAll().then(([posts]) => {
+       allPost = posts;
+       
+    }).catch(err => console.log(err))
+
+    Post.findById(+id).then(([post]) => {
+        res.render('singlepost',{
+            post: post[0],
+            posts: allPost
+        })
+    }).catch(err => console.log(err))
+    // res.render('singlepost')
    
+}
+
+
+exports.getUsersPosts = (req,res,next) => {
+ 
+
+ try {
+    var allPost = [];
+
+    Post.fetchAll().then(([posts]) => {
+       allPost = posts;
+       
+    }).catch(err => console.log(err))
+    // console.log(req.session.userEmail)
+    Post.findByEmail(req.session.userEmail).then(([posts]) => {
+    
+        res.render('userposts',{
+            posts: allPost,
+            userPosts: posts
+        })
+     }).catch(err => {
+         console.log(error)
+         res.redirect('/login')
+     })
+ } catch (error) {
+    res.redirect('/login')
+ }
+    
+}
+
+exports.getEditPost = (req,res,next) => {
+
+    try {
+        var allPost = [];
+        var id = req.params.id;
+  
+        Post.fetchAll().then(([posts]) => {
+           allPost = posts;
+           
+        }).catch(err => console.log(err))
+        // console.log(req.session.userEmail)
+        Post.findById(id).then(([posts]) => {
+            // console.log(posts[0])
+            res.render('editpost',{
+                posts: allPost,
+                editPost: posts[0]
+            })
+         }).catch(err => {
+             console.log(error)
+             res.redirect('/login')
+         })
+     } catch (error) {
+        res.redirect('/login')
+     }
+}
+
+exports.postUpdatePost = (req,res,next) => {
+    res.redirect('/')
+}
+
+module.exports.getDelete = (req,res,next) => {
+    try {
+        var allPost = [];
+        var id = req.params.id;
+  
+        Post.fetchAll().then(([posts]) => {
+           allPost = posts;
+           
+        }).catch(err => console.log(err))
+        // console.log(req.session.userEmail)
+        Post.deleteById(id).then(() => {
+            // console.log(posts[0])
+            res.redirect('/blog')
+         }).catch(err => {
+             console.log(error)
+             res.redirect('/login')
+         })
+     } catch (error) {
+        res.redirect('/login')
+     }
 }

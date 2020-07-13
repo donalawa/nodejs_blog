@@ -1,0 +1,25 @@
+<main>
+    <h1>Edit Post</h1>
+   <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
+               
+ <div class="body">
+     <form action="/update" method="POST" enctype="multipart/form-data">
+        <label for="title">Post Title</label>
+        <input type="text" value="{{editPost.title}}" name="title">
+        <label for="title">Post Photo</label>
+        <input type="file" name="postImage">
+        <label for="title">Category</label>
+        <select name="category" id="">
+            <option value="1">Web Dev</option>
+            <option value="2">Hacking</option>
+            <option value="3">Marketing</option>
+            <option value="4">Uncategorize</option>
+        </select>
+        <textarea name="content" id="editor">{{{ editPost.content}}}</textarea>
+        <input type="submit" value="Update">
+     </form>
+<script>
+   CKEDITOR.replace( 'editor' );
+</script>
+ </div>
+</main>

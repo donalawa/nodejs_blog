@@ -13,11 +13,17 @@ module.exports = class Posts {
     }
 
     save() {
-        // console.log(this)
-        return db.execute(
-            'INSERT INTO posts (title,content,category,author,post_url,published_date,post_image_url) VALUES (?,?,?,?,?,?,?)',
-            [this.title,this.content,this.category,this.author,this.posturl,this.publishedDate,this.postImageUrl]
-        );
+        // console.log(this.author)
+        // console.log('Before Executing')
+        if(this.author){
+            return db.execute(
+                'INSERT INTO posts (id,title,content,category,author,post_url,published_date,post_image_url) VALUES (?,?,?,?,?,?,?,?)',
+                [this.id,this.title,this.content,this.category,this.author,this.posturl,this.publishedDate,this.postImageUrl]
+            );
+        }else {
+            return console.error();
+        }
+      
     }
 
     static deleteById(id) {
@@ -31,5 +37,9 @@ module.exports = class Posts {
 
     static findById(id){
         return db.execute('SELECT * FROM posts WHERE posts.id = ?', [id])
+    }
+
+    static findByEmail(email){
+        return email ? db.execute('SELECT * FROM posts WHERE posts.author = ?', [email]) : console.error();
     }
 }

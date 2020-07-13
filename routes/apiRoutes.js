@@ -26,6 +26,14 @@ router.post('/register',userController.postRegister)
 
 router.get('/blog/:id',blogController.getSinglePost)
 
+router.get('/my-posts',blogController.getUsersPosts)
+
+router.get('/edit/:id',blogController.getEditPost)
+
+router.post('/update',blogController.postUpdatePost)
+
+router.get('/delete/:id',blogController.getDelete)
+
 module.exports = router;
 
 

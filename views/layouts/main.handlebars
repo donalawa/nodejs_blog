@@ -7,13 +7,13 @@
 
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
 
-    <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
     <!-- New Style -->
     {{#if loginPage}}
     <!--===============================================================================================-->	
@@ -34,7 +34,7 @@
     {{/if}}
 <!--===============================================================================================-->
     <!-- Theme Style -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
     
@@ -84,7 +84,7 @@
                   <a class="nav-link" href="/blog">Blog</a>
                 </li>
 
-                <li class="nav-item dropdown">
+                {{!-- <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="category.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown05">
                     <a class="dropdown-item" href="#">Web Dev</a>
@@ -92,7 +92,14 @@
                     <a class="dropdown-item" href="#">Marketing</a>
                   </div>
 
+                </li> --}}
+                <li class="nav-item">
+                  <a class="nav-link" href="/new">New Post</a>
                 </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="/my-posts">My Posts</a>
+                </li>
+
                 <li class="nav-item">
                   <a class="nav-link" href="/about">About</a>
                 </li>
@@ -121,10 +128,10 @@
             <div class="col-md-4">
               <h3>About Us</h3>
               <p class="mb-4">
-                <img src="images/img_1.jpg" alt="Image placeholder" class="img-fluid">
+                <img src="/images/img_1.jpg" alt="Image placeholder" class="img-fluid">
               </p>
 
-              <p>Lorem ipsum dolor sit amet sa ksal sk sa, consectetur adipisicing elit. Ipsa harum inventore reiciendis. <a href="#">Read More</a></p>
+              <p>We are Seven Dev Community we love providing you with great articles that will help you learn new skils </p>
             </div>
             <div class="col-md-6 ml-auto">
               <div class="row">
@@ -132,42 +139,24 @@
                   <h3>Latest Post</h3>
                   <div class="post-entry-sidebar">
                     <ul>
+                        {{#each posts}}
                       <li>
+                        <form action="/blog/{{this.id}}" method="GET">
+                        <button class="custom-button" type="submit">
                         <a href="">
-                          <img src="images/img_6.jpg" alt="Image placeholder" class="mr-4">
+                          <img src="/uploads/{{this.post_image_url}}" class="img-fluid" alt="Image placeholder" class="mr-4">
                           <div class="text">
-                            <h4>How to Find the Video Games of Your Youth</h4>
+                            <h4 class="new" style="color: black;">{{this.title}}</h4>
                             <div class="post-meta">
-                              <span class="mr-2">March 15, 2018 </span> &bullet;
-                              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                              <span class="mr-2" style="color: black;">{{this.published_date}} </span> &bullet;
+                              {{!-- <span class="ml-2"><span class="fa fa-comments"></span> 3</span> --}}
                             </div>
                           </div>
                         </a>
+                        </button>
+                        </form>
                       </li>
-                      <li>
-                        <a href="">
-                          <img src="images/img_3.jpg" alt="Image placeholder" class="mr-4">
-                          <div class="text">
-                            <h4>How to Find the Video Games of Your Youth</h4>
-                            <div class="post-meta">
-                              <span class="mr-2">March 15, 2018 </span> &bullet;
-                              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="">
-                          <img src="images/img_4.jpg" alt="Image placeholder" class="mr-4">
-                          <div class="text">
-                            <h4>How to Find the Video Games of Your Youth</h4>
-                            <div class="post-meta">
-                              <span class="mr-2">March 15, 2018 </span> &bullet;
-                              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
+                      {{/each}}
                     </ul>
                   </div>
                 </div>
@@ -203,7 +192,7 @@
             <div class="col-md-12 text-center">
               <p class="small">
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | Seven Dev Com <i class="fa fa-heart text-danger" aria-hidden="true"></i>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
             </div>
@@ -217,13 +206,13 @@
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
 
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/jquery-migrate-3.0.0.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/jquery-migrate-3.0.0.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <script src="/js/jquery.stellar.min.js"></script>
         {{#if loginPage}}
     <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -242,6 +231,6 @@
 <!--===============================================================================================-->
 	<script src="js/main1.js"></script>
         {{/if}}
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
   </body>
 </html>

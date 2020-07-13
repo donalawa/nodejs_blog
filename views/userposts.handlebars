@@ -1,94 +1,30 @@
 <main>
-    <section class="site-section pt-5 pb-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-
-              <div class="owl-carousel owl-theme home-slider">
-                <div>
-                  <a href="#" class="a-block d-flex align-items-center height-lg" style="background-image: url('images/seven1.jpg'); ">
-                    <div class="text half-to-full">
-                      <span class="category mb-5">Seven Dev</span>
-                      <div class="post-meta">
-                        
-                        {{!-- <span class="author mr-2"><img src="images/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet; --}}
-                        <span class="mr-2">July 13, 2020 </span> &bullet;
-                        <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                        
-                      </div>
-                      <h3>How to Become a full stack web developer</h3>
-                      <p>We have great articles that will help you through out your journey of becomming a full stack webdeveloper</p>
-                    </div>
-                  </a>
-                </div>
-                <div>
-                  <a href="#" class="a-block d-flex align-items-center height-lg" style="background-image: url('images/seven2.jpg'); ">
-                    <div class="text half-to-full">
-                      <span class="category mb-5">Seven Dev</span>
-                      <div class="post-meta">
-                        
-              
-                        <span class="mr-2">July 13, 2020 </span> &bullet;
-                        <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                        
-                      </div>
-                      <h3>Welcome to Seven Dev Blog</h3>
-                      <p>We are the seven dev community and we love providing great articles</p>
-                    </div>
-                  </a>
-                </div>
-                <div>
-                  <a href="#" class="a-block d-flex align-items-center height-lg" style="background-image: url('images/seven3.jpg'); ">
-                    <div class="text half-to-full">
-                      <span class="category mb-5">Seven Dev</span>
-                      <div class="post-meta">
-                        
-                  
-                        <span class="mr-2">July 13, 2020 </span> &bullet;
-                        <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                        
-                      </div>
-                      <h3>Join us at seven advance academy let's code together</h3>
-                      <p>Feel free to join us any day at seven advance academy lets share some great ideas together</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-          
-        </div>
-
-
-      </section>
-      <!-- END section -->
-
-      <section class="site-section py-sm">
+    <section class="site-section py-sm">
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <h2 class="mb-4">Latest Posts</h2>
+              <h2 class="mb-4">My Posts</h2>
             </div>
           </div>
           <div class="row blog-entries">
             <div class="col-md-12 col-lg-8 main-content">
               <div class="row">
                   {{!-- For LOOP start --}}
-                  {{#each posts}}
+                  {{#each userPosts}}
                 <div class="col-md-6">
-                <form action="/blog/{{this.id}}" method="GET">
+
                   <button type="submit" class="blog-entry element-animate" data-animate-effect="fadeIn">
                     <img src="uploads/{{this.post_image_url}}"+ alt="Image placeholder">
                     <div class="blog-content-body">
                       <div class="post-meta">
                         <span class="author mr-2"><img src="images/person_1.jpg" alt="Colorlib">{{this.author}}</span>&bullet;
-                        <span class="mr-2">{{post.published_date}}</span> &bullet;
+                        <span class="mr-2">{{this.published_date}}</span> &bullet;
                         <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
                       </div>
                       <h2>{{this.title}}</h2>
+                      <a href="/edit/{{this.id}}" style="color: black; margin-right: 5px">Edit</a><a style="color: red;" href="/delete/{{this.id}}">Delete</a>
                     </div>
-                  </button>
+  
                 </form>
                 </div>
                 {{/each}}
